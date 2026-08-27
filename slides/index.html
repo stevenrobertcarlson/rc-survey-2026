@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Releasing Community Survey 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; }
+html,body { margin:0; height:100%; }
+body { background:#F7F4EC; color:#2A2A24; font-family:'Public Sans',sans-serif; overflow:hidden; }
+#deck { position:relative; height:100vh; }
+.slide { position:absolute; inset:0; display:none; flex-direction:column; justify-content:center;
+  padding:6vh 7vw 15vh; max-width:1180px; margin:0 auto; }
+.slide.on { display:flex; animation:fade .28s ease; }
+@keyframes fade { from { opacity:0; } to { opacity:1; } }
+h1 { font-family:'Fraunces',serif; font-weight:500; font-size:clamp(30px,3.9vw,52px); line-height:1.1;
+  letter-spacing:-0.01em; margin:0; }
+h2 { font-family:'Fraunces',serif; font-weight:500; font-size:clamp(21px,2.5vw,34px); line-height:1.25; margin:0; }
+.eyebrow { font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em;
+  text-transform:uppercase; color:#5F7A63; margin:0 0 1.2em; }
+.lede { font-family:'Fraunces',serif; font-weight:300; font-size:clamp(16px,1.75vw,23px); line-height:1.4;
+  color:#4A473C; margin:.7em 0 1.5em; max-width:40ch; }
+.title-inner { display:flex; align-items:center; gap:4vw; }
+.title-text { flex:1; }
+.dots { width:clamp(160px,20vw,270px); height:clamp(160px,20vw,270px); flex:none; }
+.hint { display:inline-flex; align-items:center; gap:.55em; font-family:'IBM Plex Mono',monospace;
+  font-size:13px; letter-spacing:.03em; color:#5F7A63; background:#EDE7D8; padding:.75em 1.2em;
+  border-radius:2em; margin:1.8em 0 0; }
+.hint svg { width:15px; height:15px; }
+.split { display:flex; align-items:center; gap:4vw; }
+.donut { width:clamp(160px,19vw,260px); height:clamp(160px,19vw,260px); flex:none; }
+.legend { list-style:none; margin:0; padding:0; flex:1; }
+.legend li { display:grid; grid-template-columns:15px 1fr auto; align-items:center; gap:14px;
+  padding:.6em 0; border-bottom:1px solid #DED6C4; font-size:clamp(14px,1.35vw,18px); }
+.legend li:last-child { border-bottom:none; }
+.sw { width:15px; height:15px; border-radius:50%; }
+.lv { font-family:'IBM Plex Mono',monospace; white-space:nowrap; }
+.lv em { font-style:normal; color:#8A8574; }
+.bars { display:flex; flex-direction:column; gap:.75em; }
+.br { display:grid; grid-template-columns:minmax(150px,15em) 1fr 5.5em; align-items:center; gap:1.2em;
+  font-size:clamp(13px,1.3vw,17px); }
+.bt { background:#EBE6D8; border-radius:3px; height:13px; overflow:hidden; }
+.bf { height:100%; border-radius:3px; }
+.bv { font-family:'IBM Plex Mono',monospace; text-align:right; }
+.bv em { font-style:normal; color:#8A8574; }
+.note { font-size:13px; color:#8A8574; margin:1.8em 0 0; }
+.tlist { margin-top:1.8em; }
+.titem { display:flex; gap:1.4em; padding:1.35em 0; border-bottom:1px solid #DED6C4; }
+.titem:last-child { border-bottom:none; }
+.tnum { font-family:'IBM Plex Mono',monospace; font-size:14px; color:#5F7A63; flex:none;
+  width:2.2em; padding-top:.35em; letter-spacing:.06em; }
+.tbody { flex:1; }
+.thead { font-family:'Fraunces',serif; font-weight:500; font-size:clamp(17px,1.7vw,23px);
+  line-height:1.3; margin:0 0 .5em; }
+.tsub { font-size:clamp(14px,1.3vw,17px); line-height:1.7; color:#4A473C; margin:0; max-width:64ch; }
+.closing-body { font-size:clamp(14px,1.45vw,19px); color:#4A473C; max-width:46ch; margin:1.5em 0 0; line-height:1.6; }
+.closing-body strong { font-weight:600; color:#2A2A24; }
+.url { font-family:'IBM Plex Mono',monospace; font-size:15px; color:#5F7A63; margin:2em 0 0; }
+.sig { font-size:16px; color:#8A8574; margin:.5em 0 0; }
+#bar { position:fixed; left:0; bottom:0; height:5px; background:#5F7A63; width:0; transition:width .28s ease; }
+#nav { position:fixed; right:26px; bottom:26px; display:flex; align-items:center; gap:16px; }
+#count { font-family:'IBM Plex Mono',monospace; font-size:19px; font-weight:500; color:#2A2A24;
+  background:#EDE7D8; padding:.45em .9em; border-radius:2em; letter-spacing:.04em; }
+#count b { font-weight:500; }
+#count span { color:#8A8574; }
+.nb { width:60px; height:60px; border-radius:50%; border:none; background:#5F7A63; color:#F7F4EC;
+  cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s; }
+.nb:hover { background:#4C6650; }
+.nb:disabled { background:#CFC7B4; cursor:default; }
+.nb svg { width:26px; height:26px; }
+@media (max-width:760px) {
+  .split, .title-inner { flex-direction:column; align-items:flex-start; gap:1.6em; }
+  .br { grid-template-columns:1fr; gap:.35em; }
+  .bv { text-align:left; }
+  .slide { padding:5vh 6vw 16vh; }
+  .nb { width:52px; height:52px; }
+}
+</style>
+</head>
+<body>
+<div id="deck">
+<section class="slide title">
+<div class="title-inner">
+<div class="title-text">
+<p class="eyebrow">Releasing Community Survey Results · August 2026</p>
+<h1>41 people paused for five minutes to tell us who we are</h1>
+<p class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg> Press the arrow keys, or tap the green button, to move through</p>
+</div>
+<svg viewBox="0 0 300 300" class="dots" role="img"><circle cx="165.2" cy="150.0" r="5" fill="#5F7A63" opacity="0.88"/><circle cx="130.5" cy="167.8" r="5" fill="#7488A0" opacity="0.88"/><circle cx="153.0" cy="116.1" r="5" fill="#C0924F" opacity="0.88"/><circle cx="174.5" cy="182.0" r="5" fill="#8C6A56" opacity="0.88"/><circle cx="105.0" cy="142.0" r="5" fill="#8A9A6E" opacity="0.88"/><circle cx="192.6" cy="122.9" r="5" fill="#5F7A63" opacity="0.88"/><circle cx="135.7" cy="203.1" r="5" fill="#7488A0" opacity="0.88"/><circle cx="122.8" cy="97.6" r="5" fill="#C0924F" opacity="0.88"/><circle cx="209.0" cy="171.6" r="5" fill="#8C6A56" opacity="0.88"/><circle cx="88.6" cy="175.3" r="5" fill="#8A9A6E" opacity="0.88"/><circle cx="179.6" cy="86.7" r="5" fill="#5F7A63" opacity="0.88"/><circle cx="171.9" cy="219.7" r="5" fill="#7488A0" opacity="0.88"/><circle cx="84.1" cy="111.8" r="5" fill="#C0924F" opacity="0.88"/><circle cx="227.3" cy="133.0" r="5" fill="#8C6A56" opacity="0.88"/><circle cx="102.8" cy="217.1" r="5" fill="#8A9A6E" opacity="0.88"/><circle cx="139.1" cy="65.9" r="5" fill="#5F7A63" opacity="0.88"/><circle cx="216.9" cy="206.4" r="5" fill="#7488A0" opacity="0.88"/><circle cx="59.9" cy="153.7" r="5" fill="#C0924F" opacity="0.88"/><circle cx="215.7" cy="84.6" r="5" fill="#8C6A56" opacity="0.88"/><circle cx="145.6" cy="245.1" r="5" fill="#8A9A6E" opacity="0.88"/><circle cx="87.5" cy="75.1" r="5" fill="#5F7A63" opacity="0.88"/><circle cx="249.0" cy="163.3" r="5" fill="#7488A0" opacity="0.88"/><circle cx="66.1" cy="208.4" r="5" fill="#C0924F" opacity="0.88"/><circle cx="172.9" cy="48.1" r="5" fill="#8C6A56" opacity="0.88"/><circle cx="203.0" cy="242.6" r="5" fill="#8A9A6E" opacity="0.88"/><circle cx="46.3" cy="116.9" r="5" fill="#5F7A63" opacity="0.88"/><circle cx="250.7" cy="103.5" r="5" fill="#7488A0" opacity="0.88"/><circle cx="106.4" cy="254.3" r="5" fill="#C0924F" opacity="0.88"/><circle cx="111.1" cy="41.7" r="5" fill="#8C6A56" opacity="0.88"/><circle cx="253.6" cy="204.5" r="5" fill="#8A9A6E" opacity="0.88"/><circle cx="34.9" cy="180.3" r="5" fill="#5F7A63" opacity="0.88"/><circle cx="215.4" cy="48.3" r="5" fill="#7488A0" opacity="0.88"/><circle cx="170.8" cy="271.1" r="5" fill="#C0924F" opacity="0.88"/><circle cx="51.4" cy="73.6" r="5" fill="#8C6A56" opacity="0.88"/><circle cx="276.2" cy="139.5" r="5" fill="#8A9A6E" opacity="0.88"/><circle cx="62.8" cy="244.3" r="5" fill="#5F7A63" opacity="0.88"/><circle cx="150.6" cy="19.8" r="5" fill="#7488A0" opacity="0.88"/><circle cx="238.7" cy="247.8" r="5" fill="#C0924F" opacity="0.88"/><circle cx="16.8" cy="137.7" r="5" fill="#8C6A56" opacity="0.88"/><circle cx="257.9" cy="68.1" r="5" fill="#8A9A6E" opacity="0.88"/><circle cx="125.5" cy="284.9" r="5" fill="#5F7A63" opacity="0.88"/></svg>
+</div>
+</section><section class="slide">
+<h2>Are you currently practicing as a coach or facilitator?</h2>
+<p class="lede">Coaches play an active role. Twenty-four of forty-one practice in some capacity, and twelve are working with paying clients.</p>
+<div class="split"><svg viewBox="0 0 300 300" class="donut" role="img"><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#5F7A63" stroke-width="50" stroke-dasharray="76.624 708.774" stroke-dashoffset="0.000" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#7488A0" stroke-width="50" stroke-dasharray="153.248 632.150" stroke-dashoffset="-76.624" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#C0924F" stroke-width="50" stroke-dasharray="229.873 555.526" stroke-dashoffset="-229.873" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#8C6A56" stroke-width="50" stroke-dasharray="325.653 459.745" stroke-dashoffset="-459.745" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="91.0" fill="#F7F4EC"/></svg><ul class="legend"><li><span class="sw" style="background:#5F7A63"></span><span class="ll">Actively, full-time</span><span class="lv">4 <em>(10%)</em></span></li><li><span class="sw" style="background:#7488A0"></span><span class="ll">Actively, with paying clients (part-time)</span><span class="lv">8 <em>(20%)</em></span></li><li><span class="sw" style="background:#C0924F"></span><span class="ll">Occasionally, informally (friends, family, no paying clients)</span><span class="lv">12 <em>(29%)</em></span></li><li><span class="sw" style="background:#8C6A56"></span><span class="ll">Not currently</span><span class="lv">17 <em>(41%)</em></span></li></ul></div>
+</section><section class="slide">
+<h2>Completed Hale Dwoskin's Facilitator Training Course?</h2>
+<p class="lede">A solid majority of the Releasing Community are trained facilitators of the Sedona Method.</p>
+<div class="split"><svg viewBox="0 0 300 300" class="donut" role="img"><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#5F7A63" stroke-width="50" stroke-dasharray="440.589 344.809" stroke-dashoffset="0.000" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#C9C0AA" stroke-width="50" stroke-dasharray="344.809 440.589" stroke-dashoffset="-440.589" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="91.0" fill="#F7F4EC"/></svg><ul class="legend"><li><span class="sw" style="background:#5F7A63"></span><span class="ll">Yes</span><span class="lv">23 <em>(56%)</em></span></li><li><span class="sw" style="background:#C9C0AA"></span><span class="ll">No</span><span class="lv">18 <em>(44%)</em></span></li></ul></div>
+</section><section class="slide">
+<h2>What certifications or trainings do you hold?</h2>
+<p class="lede">The Releasing Community reflects the diversity of the worldwide releasing community.</p>
+<div class="bars"><div class="br"><div class="bl">Sedona Method / Hale Dwoskin</div><div class="bt"><div class="bf" style="width:100.0%;background:#5F7A63"></div></div><div class="bv">21 <em>(51%)</em></div></div><div class="br"><div class="bl">Heart of Releasing / Kate Freeman</div><div class="bt"><div class="bf" style="width:14.3%;background:#7488A0"></div></div><div class="bv">3 <em>(7%)</em></div></div><div class="br"><div class="bl">Release Technique / Larry Crane</div><div class="bt"><div class="bf" style="width:9.5%;background:#C0924F"></div></div><div class="bv">2 <em>(5%)</em></div></div><div class="br"><div class="bl">None currently</div><div class="bt"><div class="bf" style="width:76.2%;background:#C9C0AA"></div></div><div class="bv">16 <em>(39%)</em></div></div><div class="br"><div class="bl">Other certification</div><div class="bt"><div class="bf" style="width:52.4%;background:#8C6A56"></div></div><div class="bv">11 <em>(27%)</em></div></div></div><p class="note">Select all that apply. Other certification spans eleven distinct trainings.</p>
+</section><section class="slide">
+<h2>Is the Sedona Method your primary modality?</h2>
+<p class="lede">Many use the Sedona Method as a toolkit supporting other kinds of healing modalities.</p>
+<div class="split"><svg viewBox="0 0 300 300" class="donut" role="img"><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#5F7A63" stroke-width="50" stroke-dasharray="191.561 593.838" stroke-dashoffset="0.000" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#7488A0" stroke-width="50" stroke-dasharray="363.965 421.433" stroke-dashoffset="-191.561" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#C0924F" stroke-width="50" stroke-dasharray="229.873 555.526" stroke-dashoffset="-555.526" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="91.0" fill="#F7F4EC"/></svg><ul class="legend"><li><span class="sw" style="background:#5F7A63"></span><span class="ll">Primary / only modality</span><span class="lv">10 <em>(24%)</em></span></li><li><span class="sw" style="background:#7488A0"></span><span class="ll">One of several</span><span class="lv">19 <em>(46%)</em></span></li><li><span class="sw" style="background:#C0924F"></span><span class="ll">Not currently using it professionally</span><span class="lv">12 <em>(29%)</em></span></li></ul></div>
+</section><section class="slide">
+<h2>What region are you in?</h2>
+<p class="lede">Europe and America are even, and Asia Pacific is growing.</p>
+<div class="split"><svg viewBox="0 0 300 300" class="donut" role="img"><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#5F7A63" stroke-width="50" stroke-dasharray="363.965 421.433" stroke-dashoffset="0.000" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#7488A0" stroke-width="50" stroke-dasharray="306.497 478.901" stroke-dashoffset="-363.965" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#C0924F" stroke-width="50" stroke-dasharray="114.936 670.462" stroke-dashoffset="-670.462" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="91.0" fill="#F7F4EC"/></svg><ul class="legend"><li><span class="sw" style="background:#5F7A63"></span><span class="ll">Europe / Middle East / Africa</span><span class="lv">19 <em>(46%)</em></span></li><li><span class="sw" style="background:#7488A0"></span><span class="ll">North America</span><span class="lv">16 <em>(39%)</em></span></li><li><span class="sw" style="background:#C0924F"></span><span class="ll">Asia Pacific</span><span class="lv">6 <em>(15%)</em></span></li></ul></div>
+</section><section class="slide">
+<h2>Biggest bottleneck right now</h2>
+<p class="lede">Twenty-one people wrote open-text answers. In respect of their privacy, here are the aggregated responses.</p>
+<div class="bars"><div class="br"><div class="bl">Finding or growing a client base</div><div class="bt"><div class="bf" style="width:100.0%;background:#5F7A63"></div></div><div class="bv">7</div></div><div class="br"><div class="bl">Not currently coaching / stepped back</div><div class="bt"><div class="bf" style="width:42.9%;background:#7488A0"></div></div><div class="bv">3</div></div><div class="br"><div class="bl">Life circumstances (health, relocation)</div><div class="bt"><div class="bf" style="width:28.6%;background:#C0924F"></div></div><div class="bv">2</div></div><div class="br"><div class="bl">Time</div><div class="bt"><div class="bf" style="width:28.6%;background:#8C6A56"></div></div><div class="bv">2</div></div><div class="br"><div class="bl">Considering retirement or a different focus</div><div class="bt"><div class="bf" style="width:28.6%;background:#8A9A6E"></div></div><div class="bv">2</div></div><div class="br"><div class="bl">Not applicable / general note</div><div class="bt"><div class="bf" style="width:28.6%;background:#A9766D"></div></div><div class="bv">2</div></div><div class="br"><div class="bl">Confidence and follow-through</div><div class="bt"><div class="bf" style="width:14.3%;background:#9A9682"></div></div><div class="bv">1</div></div><div class="br"><div class="bl">Building supporting infrastructure</div><div class="bt"><div class="bf" style="width:14.3%;background:#B5A98C"></div></div><div class="bv">1</div></div><div class="br"><div class="bl">No bottleneck right now</div><div class="bt"><div class="bf" style="width:14.3%;background:#7C8B72"></div></div><div class="bv">1</div></div></div>
+</section><section class="slide">
+<h2>Want to hear more about AI for Releasing Coaches?</h2>
+<p class="lede">Split almost exactly down the middle.</p>
+<div class="split"><svg viewBox="0 0 300 300" class="donut" role="img"><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#5F7A63" stroke-width="50" stroke-dasharray="440.589 344.809" stroke-dashoffset="0.000" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="125.0" fill="none" stroke="#C9C0AA" stroke-width="50" stroke-dasharray="344.809 440.589" stroke-dashoffset="-440.589" transform="rotate(-90 150.0 150.0)"/><circle cx="150.0" cy="150.0" r="91.0" fill="#F7F4EC"/></svg><ul class="legend"><li><span class="sw" style="background:#5F7A63"></span><span class="ll">Yes, add me to the list</span><span class="lv">23 <em>(56%)</em></span></li><li><span class="sw" style="background:#C9C0AA"></span><span class="ll">No thanks</span><span class="lv">18 <em>(44%)</em></span></li></ul></div>
+</section><section class="slide">
+<h2>Preferred way to engage with AI for Releasing Coaches content</h2>
+<p class="lede">Among those interested, on-demand access matters as much as live.</p>
+<div class="bars"><div class="br"><div class="bl">Not interested</div><div class="bt"><div class="bf" style="width:100.0%;background:#8A8574"></div></div><div class="bv">21 <em>(51%)</em></div></div><div class="br"><div class="bl">Either works</div><div class="bt"><div class="bf" style="width:47.6%;background:#5F7A63"></div></div><div class="bv">10 <em>(24%)</em></div></div><div class="br"><div class="bl">Recorded / on-demand only</div><div class="bt"><div class="bf" style="width:33.3%;background:#7488A0"></div></div><div class="bv">7 <em>(17%)</em></div></div><div class="br"><div class="bl">Live monthly call</div><div class="bt"><div class="bf" style="width:14.3%;background:#C0924F"></div></div><div class="bv">3 <em>(7%)</em></div></div></div>
+</section><section class="slide">
+<h2>What would help most, for those interested in AI</h2>
+<p class="lede">The most common answer was not knowing yet.</p>
+<div class="bars"><div class="br"><div class="bl">Managing client sessions (notes, follow-up, records)</div><div class="bt"><div class="bf" style="width:66.7%;background:#5F7A63"></div></div><div class="bv">8 <em>(30%)</em></div></div><div class="br"><div class="bl">Marketing and content creation</div><div class="bt"><div class="bf" style="width:91.7%;background:#7488A0"></div></div><div class="bv">11 <em>(41%)</em></div></div><div class="br"><div class="bl">Business admin / operations</div><div class="bt"><div class="bf" style="width:66.7%;background:#C0924F"></div></div><div class="bv">8 <em>(30%)</em></div></div><div class="br"><div class="bl">I don't know yet, but I'd want to see what's possible</div><div class="bt"><div class="bf" style="width:100.0%;background:#8C6A56"></div></div><div class="bv">12 <em>(44%)</em></div></div></div><p class="note">Asked only of the 27 who showed interest. Percentages are of that group.</p>
+</section><section class="slide takeaways">
+<p class="eyebrow">What this changes</p>
+<h2>Three things I am taking from this</h2>
+<div class="tlist">
+<div class="titem">
+<div class="tnum">01</div>
+<div class="tbody">
+<p class="thead">We are broader than one lineage</p>
+<p class="tsub">Kate Freeman and Larry Crane practitioners are here, alongside Hale Dwoskin's students, who still constitute the majority. I created the Open-Mic Support Calls group as an experiment, open to anyone who wants to host, certified or not, provided they work with releasing modalities. This group has proven popular with the community.</p>
+</div>
+</div>
+<div class="titem">
+<div class="tnum">02</div>
+<div class="tbody">
+<p class="thead">The Method works as a toolkit alongside other modalities</p>
+<p class="tsub">Nearly half of us use the Sedona Method in combination with other healing modalities. It serves many of us as a toolbox that complements other work. This is a strength worth naming out loud.</p>
+</div>
+</div>
+<div class="titem">
+<div class="tnum">03</div>
+<div class="tbody">
+<p class="thead">Asia-Pacific is growing</p>
+<p class="tsub">We currently have a practice call scheduled for Wednesdays at 5pm Pacific, which lands Thursday morning in Indonesia and Sydney. We will continue to work to schedule call times that are convenient to Asia Pacific.</p>
+</div>
+</div>
+</div>
+</section><section class="slide closing">
+<h2>Thank you to everyone who took the time to answer.</h2>
+<p class="closing-body">Twenty-three of you asked to hear more about AI. I am starting a separate project called <strong>AI for Releasing Coaches</strong>, distinct from the <strong>Releasing Community</strong>. Everyone who opted in will hear from me there.</p>
+<p class="url">releasing.community</p>
+<p class="sig">—Steven</p>
+</section>
+</div>
+<div id="bar"></div>
+<div id="nav">
+  <div id="count"><b id="cur">1</b><span> / <span id="tot">1</span></span></div>
+  <button class="nb" id="prev" aria-label="Previous slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <button class="nb" id="next" aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
+<script>
+var slides = document.querySelectorAll('#deck > section');
+var i = 0, n = slides.length;
+var cur = document.getElementById('cur'), tot = document.getElementById('tot');
+var bar = document.getElementById('bar');
+var prev = document.getElementById('prev'), next = document.getElementById('next');
+tot.textContent = n;
+function show(k) {
+  i = Math.max(0, Math.min(n - 1, k));
+  for (var j = 0; j < n; j++) slides[j].className = (j === i ? 'slide on' : 'slide');
+  cur.textContent = i + 1;
+  bar.style.width = ((i + 1) / n * 100) + '%';
+  prev.disabled = (i === 0);
+  next.disabled = (i === n - 1);
+  try { if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+}
+prev.onclick = function () { show(i - 1); };
+next.onclick = function () { show(i + 1); };
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+  if (e.key === 'Home') show(0);
+  if (e.key === 'End') show(n - 1);
+});
+var x0 = null;
+document.addEventListener('touchstart', function (e) { x0 = e.changedTouches[0].clientX; }, {passive:true});
+document.addEventListener('touchend', function (e) {
+  if (x0 === null) return;
+  var d = e.changedTouches[0].clientX - x0;
+  if (Math.abs(d) > 55) show(d < 0 ? i + 1 : i - 1);
+  x0 = null;
+}, {passive:true});
+var start = NaN;
+try { start = parseInt((location.hash || '').replace('#', ''), 10); } catch (e) {}
+show(isNaN(start) ? 0 : start - 1);
+</script>
+</body>
+</html>
