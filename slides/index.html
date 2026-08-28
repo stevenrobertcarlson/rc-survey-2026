@@ -14,8 +14,9 @@ body { background:#F7F4EC; color:#2A2A24; font-family:'Public Sans',sans-serif; 
   font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase;
   color:#5F7A63; background:#F7F4EC; border-bottom:1px solid #DED6C4; }
 #topbar span { color:#8A8574; margin:0 .15em; }
-.slide { position:absolute; inset:0; display:none; flex-direction:column; justify-content:center;
-  padding:calc(6vh + 46px) 7vw 15vh; max-width:1180px; margin:0 auto; }
+.slide { position:absolute; inset:0; display:none; flex-direction:column; justify-content:flex-start;
+  padding:calc(6vh + 68px) 7vw 15vh; max-width:1180px; margin:0 auto; overflow-y:auto; }
+.slide.title, .slide.closing { justify-content:center; }
 .slide.on { display:flex; animation:fade .28s ease; }
 @keyframes fade { from { opacity:0; } to { opacity:1; } }
 h1 { font-family:'Fraunces',serif; font-weight:500; font-size:clamp(30px,3.9vw,52px); line-height:1.1;
